@@ -5,7 +5,6 @@ from django.conf import settings
 
 
 class Instrument(models.Model):
-    # attributes
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     name = models.CharField(max_length=200)
@@ -13,7 +12,6 @@ class Instrument(models.Model):
     tonal_range = models.CharField(max_length=200)
     picture = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     year = models.CharField(max_length=4)
-    # relationships
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
@@ -63,6 +61,7 @@ class Element(models.Model):
     tempo = models.FloatField(blank=True)
     key = models.IntegerField(blank=True)
     mode = models.IntegerField(blank=True)
+    lyrics = models.TextField(blank=True)
     learned = models.BooleanField()
     time_signature = models.IntegerField(blank=True)
     instrument = models.ForeignKey(
