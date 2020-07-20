@@ -5,15 +5,13 @@ from django.conf import settings
 
 
 class Instrument(models.Model):
-    make = models.CharField(max_length=50)
-    model = models.CharField(max_length=50)
+    make = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
     name = models.CharField(max_length=200)
-    family = models.CharField(max_length=200)
-    tonal_range = models.CharField(max_length=200)
+    family = models.CharField(max_length=200, blank=True)
+    tonal_range = models.CharField(max_length=200, blank=True)
     picture = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
-    year = models.CharField(max_length=4)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    year = models.CharField(max_length=4, blank=True)
 
     def __str__(self):
         return self.name
@@ -44,8 +42,6 @@ class Song(models.Model):
     original = models.BooleanField(default=False)
     spotify_url = models.CharField(max_length=200, blank=True)
     spotify_id = models.CharField(max_length=200, blank=True)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     instruments = models.ManyToManyField(
         Instrument)
 
