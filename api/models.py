@@ -16,7 +16,6 @@ class Instrument(models.Model):
     # relationships
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    songs = models.ManyToManyField(Song, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.name
@@ -34,7 +33,7 @@ class Song(models.Model):
     key = models.IntegerField(blank=True)
     mode = models.IntegerField(blank=True)
     lyrics = models.TextField(blank=True)
-    time_signature = models.IntegerField(blank=true)
+    time_signature = models.IntegerField(blank=True)
     tempo = models.FloatField(blank=True)
     acousticness = models.FloatField(blank=True)
     danceability = models.FloatField(blank=True)
@@ -49,6 +48,8 @@ class Song(models.Model):
     spotify_id = models.CharField(max_length=200, blank=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    instruments = models.ManyToManyField(
+        Instrument)
 
     def __str__(self):
         return self.name
