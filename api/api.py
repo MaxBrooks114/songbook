@@ -1,6 +1,6 @@
 from .models import Instrument, Song, Element, File
 from rest_framework import viewsets
-from .serializers import InstrumentSerializer, SongSerializer, ElementSerialzer, FileSerializer
+from .serializers import InstrumentSerializer, SongSerializer, ElementSerializer, FileSerializer
 
 # Project Info viewset
 # allows us to create a CRUD api without specifying methods for functionality
