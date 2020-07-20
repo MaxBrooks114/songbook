@@ -12,5 +12,10 @@ class Instrument(models.Model):
     tonal_range = models.CharField(max_length=200)
     picture = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     year = models.CharField(max_length=4)
-    added_by = models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    songs = models.ManyToManyField(Song)
+    elements = models.ManyToManyField(Element)
+
+
+class Song(models.Model):
