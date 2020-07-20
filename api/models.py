@@ -19,3 +19,32 @@ class Instrument(models.Model):
 
 
 class Song(models.Model):
+    album = models.CharField(max_length=200)
+    artist = models.CharField(max_length=200)
+    year = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+    genre = models.CharField(max_length=200)
+    duration = models.IntegerField(blank=True)
+    name = models.CharField(max_length=200)
+    explicit = models.BooleanField(default=False)
+    key = models.IntegerField(blank=true)
+    mode = models.IntegerField(blank=true)
+    time_signature = models.IntegerField(blank=true)
+    tempo = models.FloatField(blank=True)
+    acousticness = models.FloatField(blank=True)
+    danceability = models.FloatField(blank=True)
+    energy = models.FloatField(blank=True)
+    instrumentalness = models.FloatField(blank=True)
+    liveness = models.FloatField(blank=True)
+    loudness = models.FloatField(blank=True)
+    speechiness = models.FloatField(blank=True)
+    valence = models.FloatField(blank=True)
+    original = models.BooleanField(default=False)
+    spotify_url = models.CharField(max_length=200)
+    spotify_id = models.CharField(max_length=200)
+
+
+# relationships:
+# belongs to user
+# has many instruments(through elements?)
+# has many elements
