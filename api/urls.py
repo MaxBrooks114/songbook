@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
-from .api import InstrumentViewSet
+from .api import InstrumentViewSet, SongViewSet, ElementViewSet
 
 router = routers.DefaultRouter()
 router.register('api/instruments', InstrumentViewSet)
