@@ -16,7 +16,7 @@ class SongSerializer(serializers.ModelSerializer):
                   'acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'valence', 'original', 'spotify_url', 'spotify_id']
 
 
-class ElementSerialzer(serializers.ModelSerializer):
+class ElementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Element
         fields = ['name', 'start', 'duration', 'loudness', 'tempo',
