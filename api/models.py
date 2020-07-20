@@ -71,3 +71,8 @@ class Element(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class File(models.Model):
+    file = models.FileField(upload_to="files/%Y/%m/%d")
+    element = models.ForeignKey(Element, on_delete=models.CASCADE)
