@@ -30,33 +30,6 @@ has many elements
 
 Song:
 attr:
-Album
-Artist
-year
-image
-genre
-Duration
-name
-key
-mode
-time_signature
-tempo
-acousticness
-danceability
-energy
-instrumentalness
-liveness
-loudness
-speechiness
-valence
-original
-spotify_url
-spotify_id
-
-relationships:
-belongs to user
-has many instruments (through elements?)
-has many elements
 
 Element:
 Attr:
@@ -72,3 +45,12 @@ time_signature
 relationships
 belongs to a user
 belongs to a song
+
+users can:
+
+    add an instrument
+    add a song:
+        manually or through spotify
+        import a spotify playlist(later)
+    add elements to the song:
+        Through spotify or man

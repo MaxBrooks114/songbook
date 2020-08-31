@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
 from django.conf import settings
 # Create your models here.
@@ -10,7 +11,8 @@ class Instrument(models.Model):
     name = models.CharField(max_length=200)
     family = models.CharField(max_length=200, blank=True)
     tonal_range = models.CharField(max_length=200, blank=True)
-    picture = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+    user = models.ForeignKey(
+        User, related_name="instruments", default=None, on_delete=models.CASCADE)
     year = models.CharField(max_length=4, blank=True)
 
     def __str__(self):
@@ -22,28 +24,30 @@ class Song(models.Model):
     artist = models.CharField(max_length=200)
     album = models.CharField(max_length=200, blank=True)
     year = models.CharField(max_length=200, blank=True)
-    image = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+    image = models.CharField(blank=True, max_length=200)
     genre = models.CharField(max_length=200, blank=True)
-    duration = models.IntegerField(blank=True)
+    duration = models.IntegerField(blank=True, null=True)
     explicit = models.BooleanField(default=False)
-    key = models.IntegerField(blank=True)
-    mode = models.IntegerField(blank=True)
-    lyrics = models.TextField(blank=True)
-    time_signature = models.IntegerField(blank=True)
-    tempo = models.FloatField(blank=True)
-    acousticness = models.FloatField(blank=True)
-    danceability = models.FloatField(blank=True)
-    energy = models.FloatField(blank=True)
-    instrumentalness = models.FloatField(blank=True)
-    liveness = models.FloatField(blank=True)
-    loudness = models.FloatField(blank=True)
-    speechiness = models.FloatField(blank=True)
-    valence = models.FloatField(blank=True)
+    key = models.IntegerField(blank=True, null=True)
+    mode = models.IntegerField(blank=True, null=True)
+    lyrics = models.TextField(blank=True, null=True)
+    time_signature = models.IntegerField(blank=True, null=True)
+    tempo = models.FloatField(blank=True, null=True)
+    acousticness = models.FloatField(blank=True, null=True)
+    danceability = models.FloatField(blank=True, null=True)
+    energy = models.FloatField(blank=True, null=True)
+    instrumentalness = models.FloatField(blank=True, null=True)
+    liveness = models.FloatField(blank=True, null=True)
+    loudness = models.FloatField(blank=True, null=True)
+    speechiness = models.FloatField(blank=True, null=True)
+    valence = models.FloatField(blank=True, null=True)
     original = models.BooleanField(default=False)
     spotify_url = models.CharField(max_length=200, blank=True)
     spotify_id = models.CharField(max_length=200, blank=True)
     instruments = models.ManyToManyField(
         Instrument)
+    user = models.ForeignKey(User, related_name="songs",
+                             default=None, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -52,18 +56,20 @@ class Song(models.Model):
 class Element(models.Model):
     name = models.CharField(max_length=200, blank=True)
     start = models.FloatField(blank=True)
-    duration = models.FloatField(blank=True)
-    loudness = models.FloatField(blank=True)
-    tempo = models.FloatField(blank=True)
-    key = models.IntegerField(blank=True)
-    mode = models.IntegerField(blank=True)
+    duration = models.FloatField(blank=True, null=True)
+    loudness = models.FloatField(blank=True, null=True)
+    tempo = models.FloatField(blank=True, null=True)
+    key = models.IntegerField(blank=True, null=True)
+    mode = models.IntegerField(blank=True, null=True)
     lyrics = models.TextField(blank=True)
     learned = models.BooleanField()
-    time_signature = models.IntegerField(blank=True)
+    time_signature = models.IntegerField(blank=True, null=True)
+    user = models.ForeignKey(
+        User, related_name="elements", default=None, on_delete=models.CASCADE)
     instrument = models.ForeignKey(
-        Instrument, on_delete=models.CASCADE)
+        Instrument, related_name="elements", on_delete=models.CASCADE)
     song = models.ForeignKey(
-        Song, on_delete=models.CASCADE)
+        Song, related_name="elements", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -71,7 +77,10 @@ class Element(models.Model):
 
 class File(models.Model):
     file = models.FileField(upload_to="files/%Y/%m/%d")
-    element = models.ForeignKey(Element, on_delete=models.CASCADE)
+    element = models.ForeignKey(
+        Element, related_name="files", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="files",
+                             default=None, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
