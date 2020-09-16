@@ -26,8 +26,11 @@ SECRET_KEY = 'v8b7!qh^qab8vji2()g%kimq4u9z$_e6l+!h)!5vv(rlokhdw-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CORS_ORIGIN_ALLOW_ALL = True
 
-ALLOWED_HOSTS = []
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -65,6 +68,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'songbook_api.urls'
 
@@ -139,5 +145,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-CORS_ORIGIN_ALLOW_ALL = True

@@ -1,10 +1,10 @@
-from .models import Instrument, Song, Element, File
+from .models import Instrument, Song, Element, File, SpotifyInfo
 from django.contrib.auth.models import User
 from rest_framework import generics, viewsets, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
 from django.views.decorators.csrf import csrf_protect
-from .serializers import InstrumentSerializer, SongSerializer, ElementSerializer, FileSerializer, UserSerializer, RegisterSerializer, LoginSerializer
+from .serializers import SpotifyInfoSerializer, InstrumentSerializer, SongSerializer, ElementSerializer, FileSerializer, UserSerializer, RegisterSerializer, LoginSerializer
 
 
 class RegisterAPI(generics.GenericAPIView):
@@ -51,6 +51,7 @@ class InstrumentViewSet(viewsets.ModelViewSet):
     serializer_class = InstrumentSerializer
 
     def get_queryset(self):
+
         return self.request.user.instruments.all()
 
     def perform_create(self, serializer):
@@ -66,6 +67,8 @@ class SongViewSet(viewsets.ModelViewSet):
     serializer_class = SongSerializer
 
     def get_queryset(self):
+        print(self.request.session)
+
         return self.request.user.songs.all()
 
     def perform_create(self, serializer):

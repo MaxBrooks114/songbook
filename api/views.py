@@ -1,9 +1,11 @@
 import base64
 from django.views.generic.base import RedirectView, TemplateView
 from rest_framework.response import Response
-from rest_framework import generics, viewsets, permissions
+from rest_framework import generics, viewsets, permissions, views
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.models import User
+from .serializers import InstrumentSerializer, SongSerializer, ElementSerializer, FileSerializer, UserSerializer, RegisterSerializer, LoginSerializer
 from furl import furl
 import requests
 import urllib
@@ -20,7 +22,9 @@ AUTH_HEADER = {
 class SpotifyLoginView(RedirectView):
     query_string = True
 
-    def get_redirect_url(self, *args, **kwargs):
+    def get_redirect_url(self, * args, **kwargs):
+        user_id = self.request.META.get('HTTP_REFERER').split('/')[4]
+        self.request.session['user_id'] = user_id
         params = {
             "client_id": "377e14d3659f45caad70d5fa4edbefb0",
             "response_type": "code",
@@ -41,33 +45,62 @@ class SpotifyLoginView(RedirectView):
                     'user-read-playback-position',
                     'user-read-recently-played',
                 ]
+
             ),
+            "show_dialog": True,
         }
 
         url = "https://accounts.spotify.com/authorize?" + \
             urllib.parse.urlencode(params)
-        print(url)
+
         return url
 
 
-class SpotifyCallbackView(RedirectView):
-    def handle_callback(self, request):
-        code = request.GET["code"]
+class SpotifyCallbackView(views.APIView):
 
-        response = requests.post(
-            "https://accounts.spotify.com/api/token",
-            data={
-                "grant_type": "authorization_code",
-                "code": code,
-                "redirect_uri": request.build_absolute_uri("callback"),
-            },
-            headers=AUTH_HEADER,
-        )
-        return response.json()
+    def handle_callback(self, request):
+        user_id = self.request.session['user_id']
+        self.request.user = User.objects.get(id=user_id)
+        if request.GET.get("refresh_token", False):
+            refresh_token = request.GET["refresh_token"]
+            response = requests.post(
+                "https://accounts.spotify.com/api/token",
+                data={
+                    "grant_type": "refresh_token",
+                    "refresh_token": refresh_token,
+
+                },
+                headers=AUTH_HEADER,
+            )
+            return response.json()
+        else:
+            code = request.GET["code"]
+            response = requests.post(
+                "https://accounts.spotify.com/api/token",
+                data={
+                    "grant_type": "authorization_code",
+                    "code": code,
+                    "redirect_uri": request.build_absolute_uri("callback"),
+
+                },
+                headers=AUTH_HEADER,
+            )
+            return response.json()
 
     def get(self, request, *args, **kwargs):
         auth_items = self.handle_callback(request)
         access_token = auth_items["access_token"]
-        refresh_token = auth_items["refresh_token"]
-        print(access_token)
-        return HttpResponseRedirect('http://localhost:3000/users/1' + '?access_token=' + access_token + '&'+'refresh_token=' + refresh_token)
+        user = self.request.user
+        user.spotify_info.access_token = access_token
+
+        if "refresh_token" in auth_items.keys():
+            refresh_token = auth_items["refresh_token"]
+            user.spotify_info.refresh_token = refresh_token
+
+        else:
+            refresh_token = ""
+        user.save()
+        if refresh_token != "":
+            return HttpResponseRedirect('http://localhost:3000/users/' + str(self.request.user.id) + '/' + access_token + '/' + refresh_token)
+        else:
+            return HttpResponse(access_token)

@@ -20,9 +20,11 @@ urlpatterns = [path('api/auth', include('knox.urls')),
                     name="knox_logout"),
                path('api/auth/user', UserAPI.as_view()),
                path(
-    "spotify/callback", views.SpotifyCallbackView.as_view(), name="spotify callback"
+    "api/spotify/callback", views.SpotifyCallbackView.as_view(), name="spotify callback"
 ),
-    path("spotify/login", views.SpotifyLoginView.as_view(), name="spotify login"),
+    path("api/spotify/login", views.SpotifyLoginView.as_view(),
+         name="spotify login"),
+
 
 
 ] + router.urls
