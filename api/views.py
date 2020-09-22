@@ -59,8 +59,10 @@ class SpotifyLoginView(RedirectView):
 class SpotifyCallbackView(views.APIView):
 
     def handle_callback(self, request):
-        user_id = self.request.session['user_id']
-        self.request.user = User.objects.get(id=user_id)
+        if self.request.session.get('user_id', False):
+            user_id = self.request.session['user_id']
+            self.request.user = User.objects.get(id=user_id)
+
         if request.GET.get("refresh_token", False):
             refresh_token = request.GET["refresh_token"]
             response = requests.post(
@@ -101,6 +103,6 @@ class SpotifyCallbackView(views.APIView):
             refresh_token = ""
         user.save()
         if refresh_token != "":
-            return HttpResponseRedirect('http://localhost:3000/users/' + str(self.request.user.id) + '/' + access_token + '/' + refresh_token)
+            return HttpResponseRedirect('http://localhost:3000/users/' + str(self.request.user.id))
         else:
             return HttpResponse(access_token)
