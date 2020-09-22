@@ -85,12 +85,12 @@ class Element(models.Model):
     lyrics = models.TextField(blank=True)
     learned = models.BooleanField()
     time_signature = models.IntegerField(blank=True, null=True)
+    song = models.ForeignKey(
+        Song, blank=True, null=True, related_name="elements", on_delete=models.CASCADE)
+    instrument = models.ForeignKey(
+        Instrument, blank=True, null=True, related_name="elements", on_delete=models.CASCADE)
     user = models.ForeignKey(
         User, related_name="elements", default=None, on_delete=models.CASCADE)
-    instrument = models.ForeignKey(
-        Instrument, related_name="elements", on_delete=models.CASCADE)
-    song = models.ForeignKey(
-        Song, related_name="elements", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
