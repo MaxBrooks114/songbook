@@ -51,7 +51,6 @@ class InstrumentViewSet(viewsets.ModelViewSet):
     serializer_class = InstrumentSerializer
 
     def get_queryset(self):
-
         return self.request.user.instruments.all()
 
     def perform_create(self, serializer):

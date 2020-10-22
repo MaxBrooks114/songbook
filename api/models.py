@@ -87,8 +87,8 @@ class Element(models.Model):
     time_signature = models.IntegerField(blank=True, null=True)
     song = models.ForeignKey(
         Song, blank=True, null=True, related_name="elements", on_delete=models.CASCADE)
-    instrument = models.ForeignKey(
-        Instrument, blank=True, null=True, related_name="elements", on_delete=models.CASCADE)
+    instruments = models.ManyToManyField(
+        Instrument, related_name="elements")
     user = models.ForeignKey(
         User, related_name="elements", default=None, on_delete=models.CASCADE)
 

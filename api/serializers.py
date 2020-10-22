@@ -47,7 +47,7 @@ class InstrumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instrument
         fields = ['id', 'make', 'model', 'name', 'family',
-                  'tonal_range', 'year']
+                  'tonal_range', 'year', 'elements']
 
 
 def get_primary_key_related_model(model_class, **kwargs):
@@ -96,7 +96,8 @@ class ElementSerializer(serializers.ModelSerializer):
                   "lyrics",
                   "learned",
                   "time_signature",
-                  "song"]
+                  "song",
+                  "instruments"]
 
 
 class FileSerializer(serializers.ModelSerializer):
