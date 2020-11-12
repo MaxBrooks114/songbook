@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from rest_framework.fields import CharField
+from rest_framework.response import Response
+from rest_framework import status
 from .models import SpotifyInfo, Instrument, Song, Element, File
 
 
@@ -16,7 +19,14 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'spotify_info')
+        fields = ('id', 'username', 'email', 'password', 'spotify_info')
+
+
+class UserProfileChangeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
 
 
 class RegisterSerializer(serializers.ModelSerializer):
