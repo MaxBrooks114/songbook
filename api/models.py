@@ -66,7 +66,7 @@ class Song(models.Model):
     spotify_url = models.CharField(max_length=200, blank=True)
     spotify_id = models.CharField(max_length=200, blank=True)
     instruments = models.ManyToManyField(
-        Instrument)
+        'Instrument')
     user = models.ForeignKey(User, related_name="songs",
                              default=None, on_delete=models.CASCADE)
 
@@ -88,7 +88,7 @@ class Element(models.Model):
     song = models.ForeignKey(
         Song, blank=True, null=True, related_name="elements", on_delete=models.CASCADE)
     instruments = models.ManyToManyField(
-        Instrument, related_name="elements")
+        'Instrument', related_name="elements", blank=True)
     user = models.ForeignKey(
         User, related_name="elements", default=None, on_delete=models.CASCADE)
 
