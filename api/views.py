@@ -23,12 +23,12 @@ class SpotifyLoginView(RedirectView):
     query_string = True
 
     def get_redirect_url(self, * args, **kwargs):
-        user_id = self.request.META.get('HTTP_REFERER').split('/')[4]
+        user_id = self.request.build_absolute_uri('?').split('/')[-1]
         self.request.session['user_id'] = user_id
         params = {
             "client_id": "377e14d3659f45caad70d5fa4edbefb0",
             "response_type": "code",
-            "redirect_uri": self.request.build_absolute_uri("callback"),
+            "redirect_uri": self.request.build_absolute_uri("callback").replace('/login', ''),
             "scope":  " ".join(
                 [
                     'user-read-currently-playing',
