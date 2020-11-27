@@ -129,6 +129,10 @@ class InstrumentSerializer(serializers.ModelSerializer):
 
 
 class FileSerializer(serializers.ModelSerializer):
+
+    # song = get_primary_key_related_model(SongSerializer)
+    # element = get_primary_key_related_model(ElementSerializer)
+
     class Meta:
         model = File
         fields = '__all__'

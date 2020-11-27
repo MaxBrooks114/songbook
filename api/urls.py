@@ -1,4 +1,4 @@
-from .api import InstrumentViewSet, SongViewSet, ElementViewSet, RegisterAPI, LoginAPI, UserAPI, UserProfileChangeAPIView
+from .api import InstrumentViewSet, SongViewSet, ElementViewSet, RegisterAPI, LoginAPI, UserAPI, UserProfileChangeAPIView, FileViewSet
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
@@ -11,6 +11,7 @@ router = routers.DefaultRouter()
 router.register('api/instruments', InstrumentViewSet, 'instruments')
 router.register('api/songs', SongViewSet, 'songs')
 router.register('api/elements', ElementViewSet, 'elements')
+router.register('api/files', FileViewSet, 'files')
 
 
 urlpatterns = [path('api/auth', include('knox.urls')),

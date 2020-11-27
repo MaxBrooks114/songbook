@@ -139,7 +139,7 @@ class FileViewSet(viewsets.ModelViewSet):
     serializer_class = FileSerializer
 
     def get_queryset(self):
-        return self.request.user.songs.all()
+        return self.request.user.files.all()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

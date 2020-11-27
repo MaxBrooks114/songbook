@@ -98,8 +98,11 @@ class Element(models.Model):
 
 class File(models.Model):
     file = models.FileField(upload_to="files/%Y/%m/%d")
+    extension = models.CharField(max_length=200, blank=True)
     element = models.ForeignKey(
-        Element, related_name="files", on_delete=models.CASCADE)
+        Element, related_name="files", null=True, on_delete=models.CASCADE)
+    song = models.ForeignKey(
+        Song, related_name="files", null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="files",
                              default=None, on_delete=models.CASCADE)
 
