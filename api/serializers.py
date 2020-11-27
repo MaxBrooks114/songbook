@@ -7,6 +7,21 @@ from rest_framework import status
 from .models import SpotifyInfo, Instrument, Song, Element, File
 
 
+class BlankableFloatField(serializers.FloatField):
+    """
+    We wanted to be able to receive an empty string ('') for a decimal field
+    and in that case turn it into a None number. 
+    """
+
+    def to_internal_value(self, data):
+        if data == '':
+            """
+           if you return None you shall get a type error ```TypeError: '>' not supported between instances of 'NoneType' and 'int'```
+            """
+            return 0
+        return super(BlankableFloatField, self).to_internal_value(data)
+
+
 class SpotifyInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -53,13 +68,6 @@ class LoginSerializer(serializers.Serializer):
         raise serializers.ValidationError("Incorrect Credentials")
 
 
-class InstrumentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Instrument
-        fields = ['id', 'make', 'model', 'name', 'family',
-                  'tonal_range', 'year', 'elements']
-
-
 def get_primary_key_related_model(model_class, **kwargs):
     """
     Nested serializers are a mess. https://stackoverflow.com/a/28016439/2689986
@@ -93,6 +101,8 @@ class SongSerializer(serializers.ModelSerializer):
 class ElementSerializer(serializers.ModelSerializer):
 
     song = get_primary_key_related_model(SongSerializer)
+    tempo = BlankableFloatField(
+        min_value=0, default=0, allow_null=True, initial=0)
 
     class Meta:
         model = Element
@@ -110,7 +120,15 @@ class ElementSerializer(serializers.ModelSerializer):
                   "instruments"]
 
 
+class InstrumentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Instrument
+        fields = ['id', 'make', 'model', 'name', 'family',
+                  'tonal_range', 'year', 'elements']
+
+
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = ['file']
+        fields = '__all__'
