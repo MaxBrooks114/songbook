@@ -5,6 +5,8 @@ from django.conf.urls import url
 from knox import views as knox_views
 from . import views
 from rest_framework import routers
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 router = routers.DefaultRouter()
@@ -30,4 +32,4 @@ urlpatterns = [path('api/auth', include('knox.urls')),
 
 
 
-] + router.urls
+] + router.urls + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
