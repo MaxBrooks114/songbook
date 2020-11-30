@@ -1,4 +1,4 @@
-from .api import InstrumentViewSet, SongViewSet, ElementViewSet, RegisterAPI, LoginAPI, UserAPI, UserProfileChangeAPIView, FileViewSet
+from .api import ChangePasswordView, InstrumentViewSet, SongViewSet, ElementViewSet, RegisterAPI, LoginAPI, UserAPI, UpdateProfileView, FileViewSet
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
@@ -22,8 +22,10 @@ urlpatterns = [path('api/auth', include('knox.urls')),
                path('api/auth/logout', knox_views.LogoutView.as_view(),
                     name="knox_logout"),
                path('api/auth/user', UserAPI.as_view()),
-               path('api/auth/user/edit',
-                    UserProfileChangeAPIView.as_view(), name='changeProfile'),
+               path('api/auth/user/edit/<int:pk>/',
+                    UpdateProfileView.as_view(), name='auth_update_profile'),
+               path('api/auth/user/passwordreset/<int:pk>/',
+                    ChangePasswordView.as_view(), name='auth_change_password'),
                path(
     "api/spotify/callback", views.SpotifyCallbackView.as_view(), name="spotify callback"
 ),

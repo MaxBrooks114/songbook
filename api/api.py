@@ -2,15 +2,15 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from rest_framework import generics, viewsets, permissions, mixins
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-
 from rest_framework.parsers import MultiPartParser, FormParser
 from knox.models import AuthToken
 from .models import Instrument, Song, Element, File, SpotifyInfo
-from .serializers import SpotifyInfoSerializer, InstrumentSerializer, \
-    SongSerializer, ElementSerializer, FileSerializer, UserSerializer, \
-    RegisterSerializer, LoginSerializer, UserProfileChangeSerializer
+from .serializers import ChangePasswordSerializer, SpotifyInfoSerializer, InstrumentSerializer, \
+    SongSerializer, ElementSerializer, FileSerializer, UpdateUserSerializer, UserSerializer, \
+    RegisterSerializer, LoginSerializer
 
 
 class RegisterAPI(generics.GenericAPIView):
@@ -57,34 +57,18 @@ class UserIsOwnerOrReadOnly(permissions.BasePermission):
         return obj.id == request.user.id
 
 
-class UserProfileChangeAPIView(generics.RetrieveAPIView,
-                               mixins.DestroyModelMixin,
-                               mixins.UpdateModelMixin):
-    permission_classes = (
-        permissions.IsAuthenticated,
-        UserIsOwnerOrReadOnly,
-    )
-    serializer_class = UserProfileChangeSerializer
+class UpdateProfileView(generics.UpdateAPIView):
 
-    def get_object(self):
-        id = self.request.user.id
-        obj = get_object_or_404(User, id=id)
-        return obj
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UpdateUserSerializer
 
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        user = self.get_object()
-        serializer = self.serializer_class(
-            request.user, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        if serializer.validated_data['password']:
-            user.set_password(serializer.validated_data['password'])
-        serializer.save()
-        user.save()
+class ChangePasswordView(generics.UpdateAPIView):
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ChangePasswordSerializer
 
 
 class InstrumentViewSet(viewsets.ModelViewSet):
