@@ -1,4 +1,4 @@
-from .api import ChangePasswordView, InstrumentViewSet, SongViewSet, ElementViewSet, RegisterAPI, LoginAPI, UserAPI, UpdateProfileView, FileViewSet
+from .api import ChangePasswordView, InstrumentViewSet, SongViewSet, SectionViewSet, RegisterAPI, LoginAPI, UserAPI, UpdateProfileView, FileViewSet
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
@@ -12,7 +12,7 @@ from django.conf import settings
 router = routers.DefaultRouter()
 router.register('api/instruments', InstrumentViewSet, 'instruments')
 router.register('api/songs', SongViewSet, 'songs')
-router.register('api/elements', ElementViewSet, 'elements')
+router.register('api/sections', SectionViewSet, 'sections')
 router.register('api/files', FileViewSet, 'files')
 
 

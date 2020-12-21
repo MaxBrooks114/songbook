@@ -7,9 +7,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 from knox.models import AuthToken
-from .models import Instrument, Song, Element, File, SpotifyInfo
+from .models import Instrument, Song, Section, File, SpotifyInfo
 from .serializers import ChangePasswordSerializer, SpotifyInfoSerializer, InstrumentSerializer, \
-    SongSerializer, ElementSerializer, FileSerializer, UpdateUserSerializer, UserSerializer, \
+    SongSerializer, SectionSerializer, FileSerializer, UpdateUserSerializer, UserSerializer, \
     RegisterSerializer, LoginSerializer
 
 
@@ -100,16 +100,16 @@ class SongViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class ElementViewSet(viewsets.ModelViewSet):
+class SectionViewSet(viewsets.ModelViewSet):
 
     permission_classes = [
         permissions.IsAuthenticated
     ]
 
-    serializer_class = ElementSerializer
+    serializer_class = SectionSerializer
 
     def get_queryset(self):
-        return self.request.user.elements.all()
+        return self.request.user.sections.all()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

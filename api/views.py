@@ -5,7 +5,7 @@ from rest_framework import generics, viewsets, permissions, views
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-from .serializers import InstrumentSerializer, SongSerializer, ElementSerializer, FileSerializer, UserSerializer, RegisterSerializer, LoginSerializer
+from .serializers import InstrumentSerializer, SongSerializer, SectionSerializer, FileSerializer, UserSerializer, RegisterSerializer, LoginSerializer
 from furl import furl
 import requests
 import urllib
@@ -103,6 +103,6 @@ class SpotifyCallbackView(views.APIView):
             refresh_token = ""
         user.save()
         if refresh_token != "":
-            return HttpResponseRedirect('http://localhost:3000/users/' + str(self.request.user.id))
+            return HttpResponseRedirect('http://192.168.1.43:3000/users/' + str(self.request.user.id))
         else:
             return HttpResponse(access_token)

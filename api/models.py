@@ -74,7 +74,7 @@ class Song(models.Model):
         return self.name
 
 
-class Element(models.Model):
+class Section(models.Model):
     name = models.CharField(max_length=200, blank=True)
     start = models.FloatField(blank=True)
     duration = models.FloatField(blank=True, null=True)
@@ -86,11 +86,11 @@ class Element(models.Model):
     learned = models.BooleanField()
     time_signature = models.IntegerField(blank=True, null=True)
     song = models.ForeignKey(
-        Song, blank=True, null=True, related_name="elements", on_delete=models.CASCADE)
+        Song, blank=True, null=True, related_name="sections", on_delete=models.CASCADE)
     instruments = models.ManyToManyField(
-        'Instrument', related_name="elements", blank=True)
+        'Instrument', related_name="sections", blank=True)
     user = models.ForeignKey(
-        User, related_name="elements", default=None, on_delete=models.CASCADE)
+        User, related_name="sections", default=None, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -99,8 +99,8 @@ class Element(models.Model):
 class File(models.Model):
     file = models.FileField(upload_to="files/%Y/%m/%d")
     extension = models.CharField(max_length=200, blank=True)
-    element = models.ForeignKey(
-        Element, related_name="files", null=True, on_delete=models.CASCADE)
+    section = models.ForeignKey(
+        Section, related_name="files", null=True, on_delete=models.CASCADE)
     song = models.ForeignKey(
         Song, related_name="files", null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="files",

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from .models import Instrument
 from .models import Song
-from .models import Element
+from .models import Section
 from .models import File
 
 
@@ -10,5 +10,5 @@ from .models import File
 
 admin.site.register(Instrument)
 admin.site.register(Song)
-admin.site.register(Element)
+admin.site.register(Section)
 admin.site.register(File)

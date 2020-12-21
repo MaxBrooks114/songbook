@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from rest_framework.fields import CharField
 from rest_framework.response import Response
 from rest_framework import status
-from .models import SpotifyInfo, Instrument, Song, Element, File
+from .models import SpotifyInfo, Instrument, Song, Section, File
 from django.contrib.auth.password_validation import validate_password
 
 
@@ -150,17 +150,17 @@ class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
         fields = ['id', 'title', 'artist', 'album', 'year', 'image', 'genre', 'duration', 'explicit', 'key', 'mode', 'lyrics', 'time_signature', 'tempo',
-                  'acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'valence', 'original', 'spotify_url', 'spotify_id', 'elements']
+                  'acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'valence', 'original', 'spotify_url', 'spotify_id', 'sections']
 
 
-class ElementSerializer(serializers.ModelSerializer):
+class SectionSerializer(serializers.ModelSerializer):
 
     song = get_primary_key_related_model(SongSerializer)
     tempo = BlankableFloatField(
         min_value=0, default=0, allow_null=True, initial=0)
 
     class Meta:
-        model = Element
+        model = Section
         fields = ["id", "name",
                   "start",
                   "duration",
@@ -180,13 +180,13 @@ class InstrumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instrument
         fields = ['id', 'make', 'model', 'name', 'family',
-                  'tonal_range', 'year', 'elements']
+                  'tonal_range', 'year', 'sections']
 
 
 class FileSerializer(serializers.ModelSerializer):
 
     # song = get_primary_key_related_model(SongSerializer)
-    # element = get_primary_key_related_model(ElementSerializer)
+    # section = get_primary_key_related_model(SectionSerializer)
 
     class Meta:
         model = File
