@@ -150,7 +150,7 @@ class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
         fields = ['id', 'title', 'artist', 'album', 'year', 'image', 'genre', 'duration', 'explicit', 'key', 'mode', 'lyrics', 'time_signature', 'tempo',
-                  'acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'valence', 'original', 'spotify_url', 'spotify_id', 'created_at', 'sections']
+                  'acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'valence', 'original', 'spotify_url', 'spotify_id', 'created_at', 'updated_at', 'sections']
 
 
 class SectionSerializer(serializers.ModelSerializer):
@@ -172,6 +172,7 @@ class SectionSerializer(serializers.ModelSerializer):
                   "learned",
                   "time_signature",
                   'created_at',
+                  'updated_at',
                   "song",
                   "instruments"]
 
@@ -181,7 +182,7 @@ class InstrumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instrument
         fields = ['id', 'make', 'model', 'name', 'family',
-                  'tonal_range', 'year', 'sections', 'created_at', ]
+                  'tonal_range', 'year', 'sections', 'created_at', 'updated_at']
 
 
 class FileSerializer(serializers.ModelSerializer):

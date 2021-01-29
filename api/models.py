@@ -33,6 +33,8 @@ class Instrument(models.Model):
     family = models.CharField(max_length=200, blank=True)
     tonal_range = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     user = models.ForeignKey(
         User, related_name="instruments", default=None, on_delete=models.CASCADE)
     year = models.CharField(max_length=4, blank=True)
@@ -67,6 +69,8 @@ class Song(models.Model):
     spotify_url = models.CharField(max_length=200, blank=True)
     spotify_id = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     instruments = models.ManyToManyField(
         'Instrument')
     user = models.ForeignKey(User, related_name="songs",
@@ -88,6 +92,8 @@ class Section(models.Model):
     learned = models.BooleanField()
     time_signature = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     song = models.ForeignKey(
         Song, blank=True, null=True, related_name="sections", on_delete=models.CASCADE)
     instruments = models.ManyToManyField(
