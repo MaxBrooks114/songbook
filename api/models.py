@@ -49,6 +49,7 @@ class Song(models.Model):
     album = models.CharField(max_length=200, blank=True)
     year = models.CharField(max_length=200, blank=True)
     image = models.CharField(blank=True, max_length=200)
+    uploaded_image = models.ImageField(blank=True, upload_to="files/%Y/%m/%d")
     genre = models.CharField(max_length=200, blank=True)
     duration = models.IntegerField(blank=True, null=True)
     explicit = models.BooleanField(default=False)

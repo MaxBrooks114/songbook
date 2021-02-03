@@ -103,6 +103,6 @@ class SpotifyCallbackView(views.APIView):
             refresh_token = ""
         user.save()
         if refresh_token != "":
-            return HttpResponseRedirect('http://192.168.1.43:3000/users/' + str(self.request.user.id))
+            return HttpResponseRedirect('http://localhost:3000/users/' + str(self.request.user.id) + '/progress')
         else:
             return HttpResponse(access_token)
