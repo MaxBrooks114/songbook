@@ -1,12 +1,14 @@
 import base64
-from django.views.generic.base import RedirectView, TemplateView
-from rest_framework.response import Response
-from rest_framework import generics, viewsets, permissions, views
+from django.views.generic.base import RedirectView
+from .models import User
+
+from rest_framework import views
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-from .serializers import InstrumentSerializer, SongSerializer, SectionSerializer, FileSerializer, UserSerializer, RegisterSerializer, LoginSerializer
-from furl import furl
+
+from django.views.generic.edit import DeleteView
+
 import requests
 import urllib
 

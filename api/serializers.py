@@ -35,7 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', 'spotify_info')
+        fields = ('id', 'username', 'email', 'spotify_info')
 
 
 class UpdateUserSerializer(serializers.ModelSerializer):

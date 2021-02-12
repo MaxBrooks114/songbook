@@ -1,4 +1,4 @@
-from .api import ChangePasswordView, InstrumentViewSet, SongViewSet, SectionViewSet, RegisterAPI, LoginAPI, UserAPI, UpdateProfileView, FileViewSet
+from .api import ChangePasswordView, DeleteUser, InstrumentViewSet, SongViewSet, SectionViewSet, RegisterAPI, LoginAPI, UserAPI, UpdateProfileView, FileViewSet, DeleteUser
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
@@ -24,6 +24,7 @@ urlpatterns = [path('api/auth', include('knox.urls')),
                path('api/auth/user', UserAPI.as_view()),
                path('api/auth/user/edit/<int:pk>/',
                     UpdateProfileView.as_view(), name='auth_update_profile'),
+               path('api/auth/user/delete/<int:pk>/', DeleteUser.as_view()),
                path('api/auth/user/passwordreset/<int:pk>/',
                     ChangePasswordView.as_view(), name='auth_change_password'),
                path(
