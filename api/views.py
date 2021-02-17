@@ -1,24 +1,42 @@
 import base64
 from django.views.generic.base import RedirectView
 from .models import User
-
 from rest_framework import views
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-
 from django.views.generic.edit import DeleteView
-
 import requests
 import urllib
+import os
 
+KEY = str(os.getenv('SPOTIFY_KEY'))
+SECRET = str(os.getenv('SPOTIFY_SECRET'))
 
+auth = KEY + ":" + SECRET
 AUTH_HEADER = {
     "Authorization": "Basic "
     + base64.b64encode(
-        "377e14d3659f45caad70d5fa4edbefb0:8ccca168c1b34c009080187429a8f5d6".encode()
+        auth.encode()
     ).decode()
 }
+
+
+class SpotifyTokenView(views.APIView):
+    def handle_callback(self, request):
+        response = requests.post(
+            "https://accounts.spotify.com/api/token",
+            headers=AUTH_HEADER,
+            data={
+                "grant_type": "client_credentials",
+            },
+        )
+        return response.json()
+
+    def get(self, request, *args, **kwargs):
+        auth_items = self.handle_callback(request)
+        access_token = auth_items["access_token"]
+        return HttpResponse(access_token)
 
 
 class SpotifyLoginView(RedirectView):
@@ -28,7 +46,7 @@ class SpotifyLoginView(RedirectView):
         user_id = self.request.build_absolute_uri('?').split('/')[-1]
         self.request.session['user_id'] = user_id
         params = {
-            "client_id": "377e14d3659f45caad70d5fa4edbefb0",
+            "client_id": KEY,
             "response_type": "code",
             "redirect_uri": self.request.build_absolute_uri("callback").replace('/login', ''),
             "scope":  " ".join(

@@ -32,6 +32,8 @@ urlpatterns = [path('api/auth', include('knox.urls')),
 ),
     path('api/spotify/login/<int:user_id>', views.SpotifyLoginView.as_view(),
          name="spotify login"),
+    path('api/spotify/token', views.SpotifyTokenView.as_view(),
+         name="spotify token"),
 
 
 
