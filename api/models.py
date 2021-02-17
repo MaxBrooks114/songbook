@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from django.conf import settings
+import datetime
 # Create your models here.
 
 
@@ -46,26 +47,30 @@ class Instrument(models.Model):
 class Song(models.Model):
     title = models.CharField(max_length=200)
     artist = models.CharField(max_length=200)
-    album = models.CharField(max_length=200, blank=True)
-    year = models.CharField(max_length=200, blank=True)
+    album = models.CharField(
+        max_length=200, blank=True, null=True, default=None)
+    year = models.CharField(max_length=200, blank=True,
+                            default=datetime.date.today().timetuple()[0])
+
     image = models.CharField(blank=True, max_length=200)
     uploaded_image = models.ImageField(blank=True, upload_to="files/%Y/%m/%d")
-    genre = models.CharField(max_length=200, blank=True)
-    duration = models.IntegerField(blank=True, null=True)
+    genre = models.CharField(
+        max_length=200, blank=True, null=True, default=None)
+    duration = models.IntegerField(blank=True, null=True, default=0)
     explicit = models.BooleanField(default=False)
-    key = models.IntegerField(blank=True, null=True)
-    mode = models.IntegerField(blank=True, null=True)
+    key = models.IntegerField(blank=True, null=True, default=0)
+    mode = models.IntegerField(blank=True, null=True, default=0)
     lyrics = models.TextField(blank=True, null=True)
-    time_signature = models.IntegerField(blank=True, null=True)
-    tempo = models.FloatField(blank=True, null=True)
-    acousticness = models.FloatField(blank=True, null=True)
-    danceability = models.FloatField(blank=True, null=True)
-    energy = models.FloatField(blank=True, null=True)
-    instrumentalness = models.FloatField(blank=True, null=True)
-    liveness = models.FloatField(blank=True, null=True)
-    loudness = models.FloatField(blank=True, null=True)
-    speechiness = models.FloatField(blank=True, null=True)
-    valence = models.FloatField(blank=True, null=True)
+    time_signature = models.IntegerField(blank=True, null=True, default=4)
+    tempo = models.FloatField(blank=True, null=True, default=60)
+    acousticness = models.FloatField(blank=True, null=True, default=0)
+    danceability = models.FloatField(blank=True, null=True, default=0)
+    energy = models.FloatField(blank=True, null=True, default=0)
+    instrumentalness = models.FloatField(blank=True, null=True, default=0)
+    liveness = models.FloatField(blank=True, null=True, default=0)
+    loudness = models.FloatField(blank=True, null=True, default=0)
+    speechiness = models.FloatField(blank=True, null=True, default=0)
+    valence = models.FloatField(blank=True, null=True, default=0)
     original = models.BooleanField(default=False)
     spotify_url = models.CharField(max_length=200, blank=True)
     spotify_id = models.CharField(max_length=200, blank=True)
@@ -83,7 +88,7 @@ class Song(models.Model):
 
 class Section(models.Model):
     name = models.CharField(max_length=200, blank=True)
-    start = models.FloatField(blank=True)
+    start = models.FloatField(blank=True, null=True)
     duration = models.FloatField(blank=True, null=True)
     loudness = models.FloatField(blank=True, null=True)
     tempo = models.FloatField(blank=True, null=True)
