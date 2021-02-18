@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0028_auto_20201113_2013'),
+        ('app', '0028_auto_20201113_2013'),
     ]
 
     operations = [
@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='element',
             name='instruments',
-            field=models.ManyToManyField(blank=True, related_name='elements', to='api.Instrument'),
+            field=models.ManyToManyField(
+                blank=True, related_name='elements', to='app.Instrument'),
         ),
     ]

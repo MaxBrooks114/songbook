@@ -9,23 +9,26 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('api', '0020_auto_20200916_2056'),
+        ('app', '0020_auto_20200916_2056'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='element',
             name='instrument',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='instruments', to='api.Instrument'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='instruments', to='app.Instrument'),
         ),
         migrations.AlterField(
             model_name='element',
             name='song',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='elements', to='api.Song'),
+            field=models.ForeignKey(
+                blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='elements', to='app.Song'),
         ),
         migrations.AlterField(
             model_name='element',
             name='user',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='user', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='user', to=settings.AUTH_USER_MODEL),
         ),
     ]

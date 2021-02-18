@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Element',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(blank=True, max_length=200)),
                 ('start', models.FloatField(blank=True)),
                 ('duration', models.FloatField(blank=True)),
@@ -32,21 +33,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Instrument',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('make', models.CharField(max_length=50)),
                 ('model', models.CharField(max_length=50)),
                 ('name', models.CharField(max_length=200)),
                 ('family', models.CharField(max_length=200)),
                 ('tonal_range', models.CharField(max_length=200)),
-                ('picture', models.ImageField(blank=True, upload_to='photos/%Y/%m/%d/')),
+                ('picture', models.ImageField(
+                    blank=True, upload_to='photos/%Y/%m/%d/')),
                 ('year', models.CharField(max_length=4)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Song',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200)),
                 ('artist', models.CharField(max_length=200)),
                 ('album', models.CharField(blank=True, max_length=200)),
@@ -71,26 +76,31 @@ class Migration(migrations.Migration):
                 ('original', models.BooleanField(default=False)),
                 ('spotify_url', models.CharField(blank=True, max_length=200)),
                 ('spotify_id', models.CharField(blank=True, max_length=200)),
-                ('instruments', models.ManyToManyField(to='api.Instrument')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('instruments', models.ManyToManyField(to='app.Instrument')),
+                ('user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='File',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('file', models.FileField(upload_to='files/%Y/%m/%d')),
-                ('element', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.Element')),
+                ('element', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='app.Element')),
             ],
         ),
         migrations.AddField(
             model_name='element',
             name='instrument',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.Instrument'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='app.Instrument'),
         ),
         migrations.AddField(
             model_name='element',
             name='song',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.Song'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='app.Song'),
         ),
     ]

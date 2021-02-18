@@ -9,43 +9,50 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('api', '0014_auto_20200812_1438'),
+        ('app', '0014_auto_20200812_1438'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='file',
             name='user',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='files', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='files', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AlterField(
             model_name='element',
             name='instrument',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='elements', to='api.Instrument'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, related_name='elements', to='app.Instrument'),
         ),
         migrations.AlterField(
             model_name='element',
             name='song',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='elements', to='api.Song'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, related_name='elements', to='app.Song'),
         ),
         migrations.AlterField(
             model_name='element',
             name='user',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='elements', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='elements', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AlterField(
             model_name='file',
             name='element',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='files', to='api.Element'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, related_name='files', to='app.Element'),
         ),
         migrations.AlterField(
             model_name='instrument',
             name='user',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='instruments', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='instruments', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AlterField(
             model_name='song',
             name='user',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='songs', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='songs', to=settings.AUTH_USER_MODEL),
         ),
     ]

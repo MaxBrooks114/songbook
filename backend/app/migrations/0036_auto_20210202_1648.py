@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0035_song_uploaded_image'),
+        ('app', '0035_song_uploaded_image'),
     ]
 
     operations = [

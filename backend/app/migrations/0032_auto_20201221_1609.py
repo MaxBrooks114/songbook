@@ -9,14 +9,15 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('api', '0031_auto_20201127_1640'),
+        ('app', '0031_auto_20201127_1640'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Section',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(blank=True, max_length=200)),
                 ('start', models.FloatField(blank=True)),
                 ('duration', models.FloatField(blank=True, null=True)),
@@ -27,9 +28,12 @@ class Migration(migrations.Migration):
                 ('lyrics', models.TextField(blank=True)),
                 ('learned', models.BooleanField()),
                 ('time_signature', models.IntegerField(blank=True, null=True)),
-                ('instruments', models.ManyToManyField(blank=True, related_name='sections', to='api.Instrument')),
-                ('song', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='sections', to='api.Song')),
-                ('user', models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='sections', to=settings.AUTH_USER_MODEL)),
+                ('instruments', models.ManyToManyField(blank=True,
+                                                       related_name='sections', to='app.Instrument')),
+                ('song', models.ForeignKey(blank=True, null=True,
+                                           on_delete=django.db.models.deletion.CASCADE, related_name='sections', to='app.Song')),
+                ('user', models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE,
+                                           related_name='sections', to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.RemoveField(
@@ -42,6 +46,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='file',
             name='section',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='files', to='api.Section'),
+            field=models.ForeignKey(
+                null=True, on_delete=django.db.models.deletion.CASCADE, related_name='files', to='app.Section'),
         ),
     ]

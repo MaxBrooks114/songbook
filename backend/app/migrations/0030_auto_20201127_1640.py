@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0029_auto_20201113_2018'),
+        ('app', '0029_auto_20201113_2018'),
     ]
 
     operations = [
@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='file',
             name='song',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='files', to='api.Song'),
+            field=models.ForeignKey(
+                null=True, on_delete=django.db.models.deletion.CASCADE, related_name='files', to='app.Song'),
         ),
     ]

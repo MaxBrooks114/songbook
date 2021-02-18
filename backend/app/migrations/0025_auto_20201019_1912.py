@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0024_auto_20200921_2137'),
+        ('app', '0024_auto_20200921_2137'),
     ]
 
     operations = [
@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='element',
             name='instruments',
-            field=models.ManyToManyField(to='api.Instrument'),
+            field=models.ManyToManyField(to='app.Instrument'),
         ),
     ]

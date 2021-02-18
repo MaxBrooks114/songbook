@@ -9,18 +9,20 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('api', '0017_delete_customuser'),
+        ('app', '0017_delete_customuser'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='SpotifyInfo',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('access_Token', models.CharField(blank=True, max_length=500)),
                 ('refresh_token', models.CharField(blank=True, max_length=500)),
                 ('device_id', models.CharField(blank=True, max_length=500)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

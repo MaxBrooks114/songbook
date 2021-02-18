@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'api.apps.ApiConfig',
+    'app.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,7 +74,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 
-ROOT_URLCONF = 'songbook_api.urls'
+ROOT_URLCONF = 'server.urls'
 
 TEMPLATES = [
     {
@@ -92,7 +92,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'songbook_api.wsgi.application'
+WSGI_APPLICATION = 'server.wsgi.application'
 
 
 # Database

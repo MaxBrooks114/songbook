@@ -6,18 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0038_auto_20210216_2316'),
+        ('app', '0038_auto_20210216_2316'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='song',
             name='album',
-            field=models.CharField(blank=True, default=None, max_length=200, null=True),
+            field=models.CharField(
+                blank=True, default=None, max_length=200, null=True),
         ),
         migrations.AlterField(
             model_name='song',
             name='genre',
-            field=models.CharField(blank=True, default=None, max_length=200, null=True),
+            field=models.CharField(
+                blank=True, default=None, max_length=200, null=True),
         ),
     ]
