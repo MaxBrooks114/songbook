@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom'
 import { deleteSong } from '../../actions/songs'
 import { millisToMinutesAndSeconds } from '../../helpers/detailHelpers'
 import DeleteDialog from '../sharedComponents/DeleteDialog'
-import DetailTitle from '../sharedComponents/DetailTitle'
+import DetailMain from '../sharedComponents/DetailMain'
 import Features from '../sharedComponents/Features'
 import Lyrics from '../sharedComponents/Lyrics'
 import NavRow from '../sharedComponents/NavRow'
@@ -78,7 +78,7 @@ const SongDetail = () => {
               setOpen={setOpen}
           />
           <Grid item xs={12}>
-            <DetailTitle
+            <DetailMain
               song={song}
               title={`${song.title} (${millisToMinutesAndSeconds(song.duration)})`}
               subtitle1={song.artist}

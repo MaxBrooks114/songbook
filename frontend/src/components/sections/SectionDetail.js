@@ -12,7 +12,7 @@ import { Link, useParams } from 'react-router-dom'
 import { deleteSection } from '../../actions/sections'
 import { millisToMinutesAndSeconds } from '../../helpers/detailHelpers'
 import DeleteDialog from '../sharedComponents/DeleteDialog'
-import DetailTitle from '../sharedComponents/DetailTitle'
+import DetailMain from '../sharedComponents/DetailMain'
 import Features from '../sharedComponents/Features'
 import Lyrics from '../sharedComponents/Lyrics'
 import NavRow from '../sharedComponents/NavRow'
@@ -79,7 +79,7 @@ const SectionDetail = () => {
                   setOpen={setOpen}
                 />
                 <Grid item xs={12}>
-                   <DetailTitle
+                   <DetailMain
                       title={section.name}
                       subtitle1={`(${millisToMinutesAndSeconds(section.start)}-${millisToMinutesAndSeconds(section.start + section.duration)}) (${millisToMinutesAndSeconds(section.duration)})`}
                       section={section}
