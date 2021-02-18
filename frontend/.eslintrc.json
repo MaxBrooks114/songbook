@@ -1,0 +1,42 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "standard"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "simple-import-sort",
+        "import"
+    ],
+    "rules": {
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "sort-imports": "off",
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error",
+         "react/prop-types": 0
+    },
+
+     "overrides": [
+    {
+      "files": "server/**/*.js",
+      "env": { "node": true },
+      "rules": {
+        "simple-import-sort/imports": "off",
+        "import/order": ["error", { "newlines-between": "always" }]
+      }
+    }
+  ]
+}
