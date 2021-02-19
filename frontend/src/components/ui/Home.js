@@ -10,7 +10,7 @@ import * as workerTimers from 'worker-timers'
 
 import dashboard from '../../assets/dashboard.png'
 import InstrumentDemo from '../../assets/InstrumentDemo.mp4'
-import IntegrateSpotifyDemo from '../../assets/IntegrateSpotifyDemo.js.mp4'
+import SpotifyIntegrationDemo from '../../assets/SpotifyIntegrationDemo.mp4'
 import music from '../../assets/music.png'
 import piano from '../../assets/piano.png'
 import SectionDemo from '../../assets/SectionDemo.mp4'
@@ -138,7 +138,7 @@ const Home = () => {
       title: 'Deeper Integration with Spotify',
       subtitle: '(Premium members only)',
       desc: 'If you have Spotify premium you can give SongBook access to your Spotify player. You can do this by hitting the “Integrate Spotify” button found on the filter drawer on the list pages or the manage account page. Once you do this you will see play buttons on every song or section you imported through Spotify. This is especially useful for playing along with songs and sections when learning covers.',
-      video: IntegrateSpotifyDemo
+      video: SpotifyIntegrationDemo
     }
 
   ]
