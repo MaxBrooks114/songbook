@@ -6,13 +6,30 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
+import Tooltip from '@material-ui/core/Tooltip'
+import { useTheme } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import AddRoundedIcon from '@material-ui/icons/AddRounded'
 
 import InstrumentCard from './InstrumentCard'
 
 let transitionDuration = 50
 
 const useStyles = makeStyles((theme) => ({
+
+  addIcon: {
+    height: 32,
+    width: 32
+  },
+
+  addIconContainer: {
+    height: 32,
+    width: 32,
+    '&:hover': {
+      background: theme.palette.background.default
+    }
+  },
 
   expand: {
     height: 32,
@@ -38,28 +55,35 @@ const useStyles = makeStyles((theme) => ({
   },
 
   sortBar: {
-
-    width: '95%',
+    width: '93%',
     display: 'flex',
     justifyContent: 'flex-end'
   },
 
   title: {
-    width: '95%',
-    fontWeight: '600',
-    textAlign: 'center',
+    fontWeight: 600,
+    display: 'inline',
     [theme.breakpoints.down('xs')]: {
       margin: 0,
       width: '100%'
     }
-  }
+  },
+
+  titleBar: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 
 }))
 
 const InstrumentList = ({ listColumnSize, setListColumnSize, height }) => {
   const instruments = useSelector(state => state.instruments)
   const history = useHistory()
+  const location = useLocation()
   const classes = useStyles()
+  const theme = useTheme()
+  const smallScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   const renderedList = () => {
     return Object.values(instruments).length > 0
@@ -87,18 +111,36 @@ const InstrumentList = ({ listColumnSize, setListColumnSize, height }) => {
 
   return (
       <>
-        <Typography variant="h5" className={classes.title}>
-         Instruments
-        </Typography>
+         <div className={classes.titleBar}>
+          <Typography variant="h5" className={classes.title}>
+           Instruments
+          </Typography>
+          { location.pathname !== '/instruments/new' && !smallScreen
+            ? <Tooltip title="Add Instrument">
+                <IconButton
+                  onClick={() => history.push('/instruments/new')}
+                  className={classes.addIconContainer}
+                >
+                  <AddRoundedIcon className={classes.addIcon}/>
+                </IconButton>
+              </Tooltip>
+            : null
+            }
+        </div>
         <div className={classes.sortBar}>
-          {listColumnSize === 3
-            ? <IconButton onClick={() => {
-              setListColumnSize(8)
-              history.push('/instruments')
-            }}>
-            <NavigateNextIcon className={classes.expand} />
-          </IconButton>
-            : null}
+          { listColumnSize === 3
+            ? <Tooltip title="Expand list">
+              <IconButton
+                  className={classes.addIconContainer}
+                  onClick={() => {
+                    setListColumnSize(8)
+                    history.push('/instruments')
+                  }}>
+                  <NavigateNextIcon className={classes.expand} />
+                </IconButton>
+              </Tooltip>
+            : null
+          }
         </div>
         <List className={classes.list} style={{ height: height }}>
           {renderedList()}

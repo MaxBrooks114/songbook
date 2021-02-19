@@ -19,12 +19,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.info.main,
     borderRadius: 4,
     margin: '1rem 0',
-    '&:hover': {
-      transform: 'translate(10px, 10px)',
-      transition: 'transform 0.2s ease 0s',
-      cursor: 'pointer',
-      zIndex: 2
-    },
+   
     '& .MuiAccordionSummary-content': {
       flexGrow: 0
     },

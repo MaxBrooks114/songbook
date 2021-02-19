@@ -17,6 +17,8 @@ import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Tooltip from '@material-ui/core/Tooltip'
+
 
 import { importSpotifyTrack } from '../../actions/spotify'
 
@@ -165,16 +167,18 @@ const SpotifyTrack = ({ track, transitionDuration }) => {
           <div id="spacer" className={classes.spacer} />
         </div>
         <CardActions className={classes.cardActions}>
-          <IconButton
-            className={classes.buttonContainer}
-            disableRipple
-            onClick={() => {
-              handleClickOpen()
-              dispatch(importSpotifyTrack(track.id))
-            }}
-          >
-           {loading.loading && importer.importedSong === track.id ? <div className={classes.spinnerContainer}><CircularProgress thickness={2.4} size={20} className={classes.spinner} /></div> : <GetAppIcon className={classes.button}/> }
-          </IconButton>
+          <Tooltip title="Import Song">
+            <IconButton
+              className={classes.buttonContainer}
+              disableRipple
+              onClick={() => {
+                handleClickOpen()
+                dispatch(importSpotifyTrack(track.id))
+              }}
+            >
+              {loading.loading && importer.importedSong === track.id ? <div className={classes.spinnerContainer}><CircularProgress thickness={2.4} size={20} className={classes.spinner} /></div> : <GetAppIcon className={classes.button}/> }
+            </IconButton>
+          </Tooltip>
         </CardActions>
       </Card>
     </Slide>

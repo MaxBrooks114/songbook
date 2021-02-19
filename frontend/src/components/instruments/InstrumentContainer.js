@@ -1,15 +1,12 @@
 import Grid from '@material-ui/core/Grid'
-import IconButton from '@material-ui/core/IconButton'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import AddRoundedIcon from '@material-ui/icons/AddRounded'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Switch, useHistory, useLocation } from 'react-router-dom'
+import { Switch, useLocation } from 'react-router-dom'
 
-import useHeight from '../../hooks/useHeight'
 import PrivateRoute from '../auth/PrivateRoute'
 import NoMusicMessage from '../ui/NoMusicMessage'
 import InstrumentCreate from './InstrumentCreate'
@@ -105,14 +102,11 @@ const useStyles = makeStyles((theme) => ({
 
 const InstrumentContainer = () => {
   const instruments = useSelector((state) => state.instruments)
-  const history = useHistory()
   const location = useLocation()
   const classes = useStyles()
   const [listColumnSize, setListColumnSize] = useState(8)
   const theme = useTheme()
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'))
-  const elementDOM = useRef(null)
-  const [height] = useHeight(elementDOM)
   const detailShow = location.pathname.includes('/instruments/')
 
   useEffect(() => {
@@ -132,7 +126,6 @@ const InstrumentContainer = () => {
           })
             }>
             <InstrumentList
-              height={height}
               listColumnSize={listColumnSize}
               setListColumnSize={setListColumnSize}
               />
@@ -142,15 +135,6 @@ const InstrumentContainer = () => {
 
   return (
     <>
-       {location.pathname !== '/instruments/new' && !smallScreen
-         ? <IconButton
-          onClick={() => history.push('/instruments/new')}
-          className={classes.addIconContainer}
-        >
-          <AddRoundedIcon className={classes.addIcon}/>
-        </IconButton>
-         : null
-      }
       <Grid container justify='space-evenly' className={classes.cardGrid}>
         {Object.values(instruments).length
           ? renderList()
@@ -158,7 +142,7 @@ const InstrumentContainer = () => {
 
         }
         {detailShow
-          ? <Grid item xs={12} md={6} ref={elementDOM} className={classes.detail}>
+          ? <Grid item xs={12} md={6} className={classes.detail}>
           <Switch>
             <PrivateRoute exact path="/instruments/new" comp={InstrumentCreate} />
             <PrivateRoute exact path="/instruments/:id" comp={InstrumentDetail} />

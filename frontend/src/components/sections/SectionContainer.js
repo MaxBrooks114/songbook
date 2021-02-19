@@ -3,15 +3,14 @@ import IconButton from '@material-ui/core/IconButton'
 import { useTheme } from '@material-ui/core/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import AddRoundedIcon from '@material-ui/icons/AddRounded'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector, shallowEqual } from 'react-redux'
-import { Switch, useHistory, useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { shallowEqual, useSelector } from 'react-redux'
+import { Switch, useLocation } from 'react-router-dom'
+import Tooltip from '@material-ui/core/Tooltip'
 
 import filter_arrow_right from '../../assets/filter_arrow_right.svg'
-import useHeight from '../../hooks/useHeight'
 import PrivateRoute from '../auth/PrivateRoute'
 import FilterControl from '../sharedComponents/FilterControl'
 import NoMusicMessage from '../ui/NoMusicMessage'
@@ -22,25 +21,10 @@ import SectionEdit from './SectionEdit'
 import SectionList from './SectionList'
 
 const drawerWidth = 244
-const transitionDuration = 50
 
 const useStyles = makeStyles((theme) => ({
 
-  addIconContainer: {
-    height: 72,
-    width: 72,
-    marginLeft: 0,
-    position: 'fixed',
-    top: '10%',
-    zIndex: 3,
-    right: '1%',
-    '&:hover': {
-      background: theme.palette.background.default
-    },
-    [theme.breakpoints.down('md')]: {
-      top: '7%'
-    }
-  },
+ 
 
   cardGrid: {
     minHeight: '100vh',
@@ -147,7 +131,6 @@ const useStyles = makeStyles((theme) => ({
 const SectionContainer = () => {
   const sections = useSelector((state) => state.sections, shallowEqual)
   const location = useLocation()
-  const history = useHistory()
 
   const theme = useTheme()
   const classes = useStyles()
@@ -155,8 +138,6 @@ const SectionContainer = () => {
   const medScreen = useMediaQuery(theme.breakpoints.down('md'))
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   const [openDrawer, setOpenDrawer] = useState(false)
-  const elementDOM = useRef(null)
-  const [height] = useHeight(elementDOM)
   const [listColumnSize, setListColumnSize] = useState(8)
   const detailShow = location.pathname.includes('/sections/')
 
@@ -183,12 +164,7 @@ const SectionContainer = () => {
                 [classes.listSectionAlone]: (!detailShow || listColumnSize === 8) && !openDrawer
               })}
           >
-           <SectionList
-             transitionDuration={transitionDuration}
-             listColumnSize={listColumnSize}
-             setListColumnSize={setListColumnSize}
-             height={height}
-           />
+           <SectionList listColumnSize={listColumnSize} setListColumnSize={setListColumnSize} />
           </Grid>
         </>
       : <SectionDrawer openFilter={openDrawer} setOpenFilter={setOpenDrawer}/>
@@ -197,19 +173,13 @@ const SectionContainer = () => {
   return (
     <div className={classes.root}>
      {Object.values(sections).length && !smallScreen
-       ? <IconButton onClick={() => setOpenDrawer(!openDrawer)} className={classes.drawerIconContainer}>
-          <img src={filter_arrow_right} alt='filter-open-button' className={classes.drawerIcon}/>
-      </IconButton>
+       ?  <Tooltip title="Expand Filter">
+            <IconButton onClick={() => setOpenDrawer(!openDrawer)} className={classes.drawerIconContainer}>
+                <img src={filter_arrow_right} alt='filter-open-button' className={classes.drawerIcon}/>
+            </IconButton>
+          </Tooltip>
        : null }
-      {location.pathname !== '/sections/new' && !smallScreen
-        ? <IconButton
-          onClick={() => history.push('/sections/new')}
-          className={classes.addIconContainer}
-        >
-          <AddRoundedIcon className={classes.drawerIcon}/>
-        </IconButton>
-        : null
-      }
+    
       <SwipeableDrawer
         classes={{ paper: classes.drawer }}
         disableBackdropTransition={!iOS}
@@ -227,12 +197,12 @@ const SectionContainer = () => {
           ? renderList()
           : <NoMusicMessage objectType="sections"/> }
       {detailShow
-        ? <Grid item xs={12} md={6} lg={6} ref={elementDOM} className={classes.detail}>
-          <Switch>
-            <PrivateRoute exact path="/sections/new" comp={SectionCreate} />
-            <PrivateRoute exact path="/sections/:id" comp={SectionDetail} />
-            <PrivateRoute exact path="/sections/edit/:id" comp={SectionEdit}/>
-          </Switch>
+        ? <Grid item xs={12} md={6} lg={6} className={classes.detail}>
+            <Switch>
+              <PrivateRoute exact path="/sections/new" comp={SectionCreate} />
+              <PrivateRoute exact path="/sections/:id" comp={SectionDetail} />
+              <PrivateRoute exact path="/sections/edit/:id" comp={SectionEdit}/>
+            </Switch>
         </Grid>
         : null }
       </Grid>

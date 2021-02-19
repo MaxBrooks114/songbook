@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { playSection } from '../../actions/spotify'
 import { titleCase } from '../../helpers/detailHelpers'
@@ -103,9 +104,11 @@ const SongSections = ({ song, instrument }) => {
                   </Grid>
               </Grid>
               <Grid item xs={3} >
-                <IconButton onClick={() => history.push('/sections/new')}>
-                  <AddRoundedIcon/>
-                </IconButton>
+                <Tooltip title="Add Section">
+                  <IconButton onClick={() => history.push('/sections/new')}>
+                    <AddRoundedIcon/>
+                  </IconButton>
+                </Tooltip>
               </Grid>
             </React.Fragment>
             )
