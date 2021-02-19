@@ -75,7 +75,7 @@ const UserShow = () => {
   ]
 
   useEffect(() => {
-    setValue(menuOptions.find(option => option.link === location.pathname.split('/').slice(-1)[0]).activeIndex)
+    if (!location.pathname.includes('Reset')) setValue(menuOptions.find(option => option.link === location.pathname.split('/').slice(-1)[0]).activeIndex)
   })
 
   const renderTabs = () => {

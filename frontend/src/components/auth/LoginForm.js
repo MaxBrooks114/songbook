@@ -93,7 +93,7 @@ const LoginForm = ({ onSubmit, handleSubmit }) => {
               }
             }} type="password" name="password" component={renderTextField} label="Password" />
         )
-      : (<Link to="/passwordReset">Reset your Password</Link>)
+      : null
   }
 
   const renderErrorMessages = () => {
@@ -110,7 +110,7 @@ const LoginForm = ({ onSubmit, handleSubmit }) => {
     <form onSubmit={handleSubmit(onFormSubmit)} className={classes.root}>
       <Grid container alignItems="flex-end" align="center" justify="flex-end" >
           <Grid item style={{ marginBottom: '4px' }} xs={12}>
-            <Field classes={classes} name="username" component={renderTextField} label="Username" InputLabelProps={{
+            <Field classes={classes} name="username" component={renderTextField} label={ user ? 'New Username' : 'Username' } InputLabelProps={{
               classes: {
                 root: classes.label,
                 shrink: 'shrink'

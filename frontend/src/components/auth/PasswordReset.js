@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.info.main,
     width: '50%',
     margin: 'auto',
+    marginTop: '4rem',
     padding: '2rem',
     boxShadow: '0px 3px 15px rgba(0,0,0,0.2)',
     backgroundColor: theme.palette.primary.main,
@@ -91,7 +92,20 @@ const useStyles = makeStyles((theme) => ({
     '&.shrink': {
       color: theme.palette.info.main
     }
-  }
+  },
+
+  title: {
+    fontSize: '2rem',
+    fontWeight: 600,
+    color: theme.palette.info.main,
+    textAlign: 'center',
+    width: '100%',
+    wordWrap: 'break-word',
+    whiteSpace: 'normal',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem'
+    }
+  },
 
 }))
 

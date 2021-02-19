@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 
 import { deleteUser, editUser } from '../../actions/auth'
 import Spotify_Icon_RGB_Green from '../../assets/Spotify_Icon_RGB_Green.png'
@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.info.main,
     width: '50%',
     margin: 'auto',
+    marginTop: '4rem',
     padding: '2rem',
     boxShadow: '0px 3px 15px rgba(0,0,0,0.2)',
     backgroundColor: theme.palette.primary.main,
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   buttonContainer: {
-    marginTop: '1rem'
+    marginTop: '2rem'
   },
 
   container: {
@@ -67,6 +68,10 @@ const useStyles = makeStyles((theme) => ({
     }
   },
 
+  fieldSet: {
+    borderRadius: '4px'
+  },
+
   link: {
     color: theme.palette.background.default,
     textDecoration: 'none'
@@ -79,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   title: {
-    fontSize: '2.8rem',
+    fontSize: '2rem',
     fontWeight: 600,
     color: theme.palette.info.main,
     textAlign: 'center',
@@ -109,6 +114,7 @@ const UserEdit = () => {
   const user = useSelector(state => state.auth.user)
   const accessToken = useSelector(state => state.auth.user.spotify_info.access_token)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+  const history = useHistory()
 
   const onSubmit = (formValues) => {
     dispatch(
@@ -137,7 +143,7 @@ const UserEdit = () => {
         <Typography className={classes.title} component="h1" variant="h2" align="center" gutterBottom>
           Edit Your Information
         </Typography>
-        <fieldset>
+        <fieldset className={classes.fieldSet}>
           <LoginForm onSubmit={onSubmit} />
         </fieldset>
         {accessToken
@@ -148,10 +154,18 @@ const UserEdit = () => {
               <img className={classes.spotifyLogo} src={Spotify_Icon_RGB_Green} alt="SpotifyLogo"/>
             </Button>
         </Grid>}
-        <Grid container justify="center" className={classes.buttonContainer}>
+        
+        <Grid container justify="space-evenly" className={classes.buttonContainer}>
+          <Grid item>
+            <Button className={classes.button} onClick={() => history.push('/passwordReset')}>
+              Reset Password
+            </Button>
+          </Grid>
+          <Grid item>
             <Button className={classes.delete} onClick={handleClickOpen}>
               Delete Account
             </Button>
+          </Grid>
         </Grid>
         <DeleteDialog
           item={user}
