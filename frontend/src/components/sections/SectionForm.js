@@ -255,11 +255,11 @@ const SectionForm = ({ songs, onSubmit, handleSubmit, instruments, initialValues
           </Grid>
           <Grid item xs={12} md={6}>
             <Field
-              options={modes}
+              options={modes.map(mode => Object.values(mode)[0])}
               classes={classes}
               name="mode"
-              component={renderAutoCompleteField}
-              defaultValue={initialValues && initialValues.mode ? initialValues.mode : undefined}
+              component={renderAutoCompleteDataField}
+              defaultValue={initialValues ? initialValues.mode : undefined}
               label="Mode"
               InputLabelProps={{
                 classes: {
