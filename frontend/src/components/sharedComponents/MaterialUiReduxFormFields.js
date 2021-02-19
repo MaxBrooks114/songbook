@@ -186,7 +186,7 @@ export const renderAutoCompleteDataField = ({ options, nonfilter, renderOption, 
             {...params}
             label={label}
             size="small"
-            color="secdondary"
+            color="secondary"
             variant="outlined"
             fullWidth={fullWidth}
             InputProps={{
