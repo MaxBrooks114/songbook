@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { makeStyles } from '@material-ui/styles'
 import _ from 'lodash'
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { clearFields, Field, initialize, reduxForm, reset } from 'redux-form'
 

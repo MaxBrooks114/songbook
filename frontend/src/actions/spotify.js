@@ -11,7 +11,7 @@ import { loading, notLoading, showSuccessSnackbar } from './ui'
 
 let timeoutId
 
-export const getSpotifyToken = async() => {
+export const getSpotifyToken = async () => {
   const response = await songbook.get('/spotify/token')
   return response.data
 }
@@ -167,8 +167,6 @@ export const refreshAccessToken = (refreshToken) => async (dispatch) => {
     dispatch(returnErrors(error))
   }
 }
-
-
 
 export const getDeviceId = (accessToken) => async (dispatch) => {
   try {

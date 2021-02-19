@@ -1,7 +1,7 @@
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import { createFile } from '../../actions/files'

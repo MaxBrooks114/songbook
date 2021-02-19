@@ -1,8 +1,8 @@
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
-import ListItem from '@material-ui/core/ListItem'
 import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { makeStyles } from '@material-ui/styles'
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.info.main,
     borderRadius: 4,
     margin: '1rem 0',
-   
+
     '& .MuiAccordionSummary-content': {
       flexGrow: 0
     },
@@ -122,10 +122,11 @@ const SongAccordion = ({ song, sections, transitionDuration }) => {
       : <Typography className={classes.songTitle} component="p">{song.title} ({sections.length})</Typography>
   }
 
-  return sections.length ? (
-     <Accordion className={classes.accordion} style={expanded ? {zIndex: 1300}: null }onChange={(event, expanded) => {
+  return sections.length
+    ? (
+     <Accordion className={classes.accordion} style={expanded ? { zIndex: 1300 } : null }onChange={(event, expanded) => {
        setExpanded(expanded)
-     }}> 
+     }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
           <img
             alt={song.album}
@@ -134,13 +135,14 @@ const SongAccordion = ({ song, sections, transitionDuration }) => {
           />
             {renderSongTitle()}
         </AccordionSummary>
-        <AccordionDetails  >
-          <List style={{maxHeight: 400, overflow: 'scroll'}}>
+        <AccordionDetails >
+          <List style={{ maxHeight: 400, overflow: 'scroll' }}>
             {renderedList(sections)}
           </List>
         </AccordionDetails>
       </Accordion>
-  ) : null
+      )
+    : null
 }
 
 export default SongAccordion

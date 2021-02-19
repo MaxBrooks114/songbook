@@ -113,10 +113,10 @@ const useStyles = makeStyles((theme) => ({
   },
 
   songFieldContainer: {
-      height: 49, 
-      display: 'flex', 
-      justifyContent: 'center', 
-      alignItems: 'center'
+    height: 49,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   uploadButton: {
@@ -192,7 +192,7 @@ const SectionForm = ({ songs, onSubmit, handleSubmit, instruments, initialValues
               options={_.uniq(Object.values(songs).map(song => song.title))}
               classes={classes}
               name="song"
-              style={{display: 'block', margin: 'auto'}}
+              style={{ display: 'block', margin: 'auto' }}
               defaultValue={initialValues && initialValues.song ? initialValues.song : undefined}
               component={renderAutoCompleteDataField}
               label="Song"

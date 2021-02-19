@@ -154,7 +154,7 @@ const UserEdit = () => {
               <img className={classes.spotifyLogo} src={Spotify_Icon_RGB_Green} alt="SpotifyLogo"/>
             </Button>
         </Grid>}
-        
+
         <Grid container justify="space-evenly" className={classes.buttonContainer}>
           <Grid item>
             <Button className={classes.button} onClick={() => history.push('/passwordReset')}>

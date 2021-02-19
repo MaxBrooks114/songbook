@@ -1,16 +1,16 @@
 import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import { useTheme } from '@material-ui/core/styles'
+import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import AddRoundedIcon from '@material-ui/icons/AddRounded'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
-import Tooltip from '@material-ui/core/Tooltip'
-import { useTheme } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import AddRoundedIcon from '@material-ui/icons/AddRounded'
 
 import InstrumentCard from './InstrumentCard'
 
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
-  },
+  }
 
 }))
 

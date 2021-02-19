@@ -6,7 +6,7 @@ import Slide from '@material-ui/core/Slide'
 import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded'
 import { makeStyles } from '@material-ui/styles'
 import React, { useState } from 'react'
-import { useSelector, shallowEqual } from 'react-redux'
+import { shallowEqual, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 
 import { deleteSection } from '../../actions/sections'

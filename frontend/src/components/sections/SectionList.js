@@ -1,15 +1,15 @@
 import IconButton from '@material-ui/core/IconButton'
+import { useTheme } from '@material-ui/core/styles'
+import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import AddRoundedIcon from '@material-ui/icons/AddRounded'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
 import { FixedSizeList } from 'react-window'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useTheme } from '@material-ui/core/styles'
-import AddRoundedIcon from '@material-ui/icons/AddRounded'
-import Tooltip from '@material-ui/core/Tooltip'
 
 import { getFilteredItems } from '../../selectors/filterSelectors'
 import Sort from '../sharedComponents/Sort'
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
-  },
+  }
 
 }))
 const SectionList = ({ listColumnSize, setListColumnSize }) => {

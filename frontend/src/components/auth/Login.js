@@ -85,7 +85,7 @@ const Login = () => {
         </Typography>
         <LoginForm onSubmit={onSubmit} />
         <div className={classes.toolbarMargin}></div>
-        <Typography  variant="subtitle1" align="center">
+        <Typography variant="subtitle1" align="center">
           Don't have an account?{' '}
           <Link className={classes.link} component={RouterLink} to="/register">
             Register

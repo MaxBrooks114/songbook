@@ -2,13 +2,13 @@ import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import { useTheme } from '@material-ui/core/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
+import Tooltip from '@material-ui/core/Tooltip'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
 import { Switch, useLocation } from 'react-router-dom'
-import Tooltip from '@material-ui/core/Tooltip'
 
 import filter_arrow_right from '../../assets/filter_arrow_right.svg'
 import PrivateRoute from '../auth/PrivateRoute'
@@ -23,8 +23,6 @@ import SectionList from './SectionList'
 const drawerWidth = 244
 
 const useStyles = makeStyles((theme) => ({
-
- 
 
   cardGrid: {
     minHeight: '100vh',
@@ -173,13 +171,13 @@ const SectionContainer = () => {
   return (
     <div className={classes.root}>
      {Object.values(sections).length && !smallScreen
-       ?  <Tooltip title="Expand Filter">
+       ? <Tooltip title="Expand Filter">
             <IconButton onClick={() => setOpenDrawer(!openDrawer)} className={classes.drawerIconContainer}>
                 <img src={filter_arrow_right} alt='filter-open-button' className={classes.drawerIcon}/>
             </IconButton>
           </Tooltip>
        : null }
-    
+
       <SwipeableDrawer
         classes={{ paper: classes.drawer }}
         disableBackdropTransition={!iOS}

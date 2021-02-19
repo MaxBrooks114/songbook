@@ -8,7 +8,7 @@ import PauseCircleOutlineRoundedIcon from '@material-ui/icons/PauseCircleOutline
 import PlayCircleOutlineRoundedIcon from '@material-ui/icons/PlayCircleOutlineRounded'
 import { makeStyles } from '@material-ui/styles'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as workerTimers from 'worker-timers'
 
 import { checkIfPlaying, playSection, playSong, pressPausePlayer } from '../../actions/spotify'

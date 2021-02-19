@@ -11,14 +11,13 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import Slide from '@material-ui/core/Slide'
+import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import GetAppIcon from '@material-ui/icons/GetApp'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Tooltip from '@material-ui/core/Tooltip'
-
 
 import { importSpotifyTrack } from '../../actions/spotify'
 

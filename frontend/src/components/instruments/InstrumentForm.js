@@ -76,11 +76,11 @@ const useStyles = makeStyles((theme) => ({
     }
   },
 
-   songFieldContainer: {
-      height: 49, 
-      display: 'flex', 
-      justifyContent: 'center', 
-      alignItems: 'center'
+  songFieldContainer: {
+    height: 49,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   value: {
