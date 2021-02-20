@@ -1,7 +1,14 @@
 import axios from 'axios'
 
+let baseURL
+
+if (window.location.origin === "http://localhost:3000") {
+  baseURL = "http://127.0.0.1:8000/api"
+} else {
+  baseURL = `${window.location.origin}/api`
+}
 const songbook = axios.create({
-  baseURL: 'http://localhost:8000/api'
+    baseURL: baseURL
 
 })
 

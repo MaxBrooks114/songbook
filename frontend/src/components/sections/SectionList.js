@@ -73,8 +73,9 @@ const SectionList = ({ listColumnSize, setListColumnSize }) => {
   const filter = useSelector((state) => state.filter)
   const order = filter.order === 'ascending' ? [1, -1] : [-1, 1]
   const orderedSongs = filter.sort === 'song'
-    ? Object.values(songs).sort((a, b) => (a.title > b.title ? order[0] : order[1]))
-    : Object.values(songs)
+    ? Object.values(songs).filter(song => song.sections.length).sort((a, b) => (a.title > b.title ? order[0] : order[1]))
+    : Object.values(songs).filter(song => song.sections.length)
+
   const listLength = orderedSongs.length
   const location = useLocation()
   const history = useHistory()
@@ -82,15 +83,20 @@ const SectionList = ({ listColumnSize, setListColumnSize }) => {
   const theme = useTheme()
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const Row = ({ index, style }) => (
-
-    <div style={style} >
-      <SongAccordion
-        key={orderedSongs[index].id}
-        song={orderedSongs[index]}
-        sections={filteredSections.filter(section => orderedSongs[index].id === section.song.id)} />
-      </div>
-  )
+  const Row = ({ index, style }) => {
+    const sections = filteredSections.filter(section => orderedSongs[index].id === section.song.id)
+    return (
+      orderedSongs[index] && sections.length
+        ? (
+          <div style={style}>
+            <SongAccordion
+              key={orderedSongs[index].id}
+              song={orderedSongs[index]}
+              sections={sections} />
+          </div>)
+        : null
+    )
+  }
 
   return (
       <>

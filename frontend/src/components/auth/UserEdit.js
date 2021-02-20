@@ -115,7 +115,12 @@ const UserEdit = () => {
   const accessToken = useSelector(state => state.auth.user.spotify_info.access_token)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
   const history = useHistory()
-
+  let baseURL
+  if (window.location.origin === "http://localhost:3000") {
+    baseURL = "http://127.0.0.1:8000/api"
+  } else {
+    baseURL = `${window.location.origin}/api`
+  }
   const onSubmit = (formValues) => {
     dispatch(
       editUser(user.id, {
@@ -150,7 +155,7 @@ const UserEdit = () => {
           ? null
           : <Grid container justify="center" className={classes.buttonContainer}>
             <Button className={classes.button} >
-               <a className={classes.link} href={`http://localhost:8000/api/spotify/login/${user.id}`}>Integrate Spotify</a>
+               <a className={classes.link} href={`${baseURL}/spotify/login/${user.id}`}>Integrate Spotify</a>
               <img className={classes.spotifyLogo} src={Spotify_Icon_RGB_Green} alt="SpotifyLogo"/>
             </Button>
         </Grid>}

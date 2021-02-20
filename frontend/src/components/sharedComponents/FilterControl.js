@@ -206,6 +206,13 @@ const FilterControl = ({ objectType, handleSubmit, setOpenDrawer, openDrawer }) 
     false: false
   }
 
+  let baseURL
+  if (window.location.origin === "http://localhost:3000") {
+    baseURL = "http://127.0.0.1:8000/api"
+  } else {
+    baseURL = `${window.location.origin}/api`
+  }
+
   const initializeSliders = () => {
     dispatch(setFilter({ duration: [0, Math.max(...items.filter(item => item !== 0 && !isNaN(parseInt(item.duration))).map((item) => parseInt((item.duration)) + 1))] }))
 
@@ -419,7 +426,7 @@ const FilterControl = ({ objectType, handleSubmit, setOpenDrawer, openDrawer }) 
         {!accessToken
           ? <Grid item xs={12}>
             <Button className={classes.spotify} >
-               <a className={classes.link} href={`http://localhost:8000/api/spotify/login/${userId}`}>Integrate Spotify</a>
+               <a className={classes.link} href={`${baseURL}/api/spotify/login/${userId}`}>Integrate Spotify</a>
               <img className={classes.spotifyLogo} src={Spotify_Icon_RGB_Green} alt="SpotifyLogo"/>
             </Button>
           </Grid>
