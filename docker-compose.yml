@@ -33,6 +33,8 @@ services:
             - static_volume:/app/backend/server/django_static
         expose:
             - 8000    
+        depends_on: 
+            - db
     db:
         image: postgres:alpine
         volumes: 

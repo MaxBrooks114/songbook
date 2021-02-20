@@ -105,7 +105,7 @@ DATABASES = {
         'NAME': 'songbookdb',
         'USER': 'postgres',
         'PASSWORD': 'skyline',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '',  # default port
     }
 }
