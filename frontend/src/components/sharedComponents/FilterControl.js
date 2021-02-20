@@ -426,7 +426,7 @@ const FilterControl = ({ objectType, handleSubmit, setOpenDrawer, openDrawer }) 
         {!accessToken
           ? <Grid item xs={12}>
             <Button className={classes.spotify} >
-               <a className={classes.link} href={`${baseURL}/api/spotify/login/${userId}`}>Integrate Spotify</a>
+               <a className={classes.link} href={`${baseURL}/spotify/login/${userId}`}>Integrate Spotify</a>
               <img className={classes.spotifyLogo} src={Spotify_Icon_RGB_Green} alt="SpotifyLogo"/>
             </Button>
           </Grid>
