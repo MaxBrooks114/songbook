@@ -4,7 +4,7 @@ import songbook from '../apis/songbook'
 import spotify from '../apis/spotify'
 import history from '../history'
 import { returnErrors } from './messages'
-import { createSection } from './sections'
+import { createSection, fetchSections } from './sections'
 import { createSong, fetchSongs } from './songs'
 import { CHECK_IF_PLAYING, CLEAR_SPOTIFY_TRACKS, FETCH_SPOTIFY_TRACKS, GET_DEVICE_ID, IMPORT_SPOTIFY_TRACK, PAUSE, REFRESH_ACCESS_TOKEN, SECTIONPLAY, SONGPLAY } from './types'
 import { loading, notLoading, showSuccessSnackbar } from './ui'
@@ -145,6 +145,7 @@ export const importSpotifyTrack = (id) => async (dispatch, getState) => {
       await dispatch(createSection(sectionData))
     }
     dispatch(fetchSongs())
+    dispatch(fetchSections())
     dispatch(notLoading())
 
     dispatch(showSuccessSnackbar('Song Imported', song.id))
