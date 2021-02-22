@@ -15,11 +15,11 @@ export const createSection = (formValues) => async (dispatch) => {
       payload: response.data
     })
     if (history.location.pathname.includes('sections/new')) {
+       dispatch(fetchSections())
       history.push(`/sections/${response.data.id}`)
       dispatch(showSuccessSnackbar('Section Created'))
     }
-    dispatch(fetchSongs())
-    dispatch(fetchSections())
+   
   } catch (error) {
     dispatch(returnErrors(error.response.data, error.response.status))
   }
