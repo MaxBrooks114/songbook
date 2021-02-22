@@ -38,14 +38,16 @@ services:
     db:
         image: postgres:alpine
         volumes: 
-
+            - postgres_data:/var/postgres_data
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: skyline
             POSTGRES_DB: songbookdb
-            PGDATA: /tmp/pgdata
-        volumes:
-            - /var/lib/postgresql/data/    
+            PGDATA: /var/postgres_data
+        
 
 volumes:
+    postgres_data:
     static_volume: {}
+
+    
