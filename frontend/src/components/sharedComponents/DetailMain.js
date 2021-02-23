@@ -88,7 +88,8 @@ const useStyles = makeStyles((theme) => ({
     objectFit: 'fill',
     borderRadius: 4,
     height: '100%',
-    width: '100%'
+    width: '100%',
+    background: 'linear-gradient(0deg, #00000088 30%, #ffffff88 100%)'
 
   },
 
