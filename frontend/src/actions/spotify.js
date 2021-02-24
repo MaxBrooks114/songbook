@@ -186,11 +186,18 @@ export const getDeviceId = (accessToken) => async (dispatch) => {
         break
       }
     }
-    dispatch({
-      type: GET_DEVICE_ID,
-      payload: deviceId
-    })
-    return deviceId
+    if (deviceId) {
+      dispatch({
+        type: GET_DEVICE_ID,
+        payload: deviceId
+      })
+      return deviceId
+    } else {
+      let r = window.confirm('No devices found, please make sure your Spotify App is open on your computer. Please note this will not work on mobile devices')
+      if (r === true) {
+        window.location.reload()
+      }
+    }
   } catch (error) {
     dispatch(returnErrors(error))
   }
