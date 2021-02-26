@@ -35,7 +35,7 @@ export const getFilteredItems = (state, objectType) => {
           case prop === 'time_signature' :
             return item[prop] !== null && item[prop] !== '' && parseInt(item[prop]) === parseInt(filterAttributes[prop])
           case prop === 'mode' :
-            return item[prop] && renderText(modes, item[prop]).toLowerCase() === renderText(modes, filterAttributes[prop]).toLowerCase()
+            return renderText(modes, parseInt(item[prop])).toLowerCase() === renderText(modes, parseInt(filterAttributes[prop])).toLowerCase()
           case prop === 'original':
           case prop === 'explicit':
           case prop === 'learned':
