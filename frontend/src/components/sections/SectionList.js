@@ -6,10 +6,11 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import AddRoundedIcon from '@material-ui/icons/AddRounded'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import { makeStyles } from '@material-ui/styles'
-import React from 'react'
+import _ from 'lodash'
+import React, { useEffect } from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
-import { FixedSizeList } from 'react-window'
+import { VariableSizeList } from 'react-window'
 
 import { getFilteredItems } from '../../selectors/filterSelectors'
 import Sort from '../sharedComponents/Sort'
@@ -73,8 +74,8 @@ const SectionList = ({ listColumnSize, setListColumnSize }) => {
   const filter = useSelector((state) => state.filter)
   const order = filter.order === 'ascending' ? [1, -1] : [-1, 1]
   const orderedSongs = filter.sort === 'song'
-    ? Object.values(songs).filter(song => song.sections.length).sort((a, b) => (a.title > b.title ? order[0] : order[1]))
-    : Object.values(songs).filter(song => song.sections.length)
+    ? _.uniqBy(filteredSections.map(section => section.song), 'id').sort((a, b) => (a.title > b.title ? order[0] : order[1]))
+    : _.uniqBy(filteredSections.map(section => section.song), 'id')
 
   const listLength = orderedSongs.length
   const location = useLocation()
@@ -97,6 +98,17 @@ const SectionList = ({ listColumnSize, setListColumnSize }) => {
         : null
     )
   }
+
+  const getItemSize = index => {
+    const rowHeights = new Array(orderedSongs.length)
+      .fill(true)
+      .map(() => 130)
+
+    return rowHeights[index]
+  }
+  useEffect(() => {
+    getItemSize()
+  }, [orderedSongs, filteredSections])
 
   return (
       <>
@@ -133,9 +145,9 @@ const SectionList = ({ listColumnSize, setListColumnSize }) => {
             : null
           }
         </div>
-        <FixedSizeList itemSize={130} itemCount={listLength} className={classes.list} height={1000}>
+        <VariableSizeList itemSize={getItemSize} itemCount={parseInt(listLength)} className={classes.list} height={1000}>
           {Row}
-        </FixedSizeList>
+        </VariableSizeList>
       </>
   )
 }
